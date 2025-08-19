@@ -66,8 +66,8 @@
 
 
 
-const Notes = () => {
-  return <div>[id]</div>;
+const NoteList = () => {
+  return <div>id</div>;
 };
 
-export default Notes;
+export default NoteList;
