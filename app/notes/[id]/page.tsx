@@ -61,3 +61,13 @@
 //     title: note ? `${note.title} - NoteHub` : 'Нотатка не знайдена',
 //   };
 // }
+
+
+
+
+
+const Notes = () => {
+  return <div>[id]</div>;
+};
+
+export default Notes;
