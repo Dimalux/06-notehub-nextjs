@@ -1,20 +1,19 @@
 // import { notFound } from 'next/navigation';
 // import { Note, NewNote } from "@/types/note";
 
-
 // // Функція для отримання нотатки (замініть на реальну реалізацію)
 // async function getNoteById(id: string): Promise<Note | null> {
 //   // Тут буде ваша логіка отримання нотатки з бази даних або API
 //   // Наприклад:
 //   // const response = await fetch(`/api/notes/${id}`);
 //   // return response.json();
-  
+
 //   // Заглушка для прикладу:
 //   const notes: Note[] = [
 //     { id: '1', title: 'Перша нотатка', content: 'Це вміст першої нотатки', createdAt: new Date() },
 //     { id: '2', title: 'Друга нотатка', content: 'Це вміст другої нотатки', createdAt: new Date() },
 //   ];
-  
+
 //   return notes.find(note => note.id === id) || null;
 // }
 
@@ -41,8 +40,8 @@
 //           <p className="whitespace-pre-wrap">{note.content}</p>
 //         </div>
 //         <div className="mt-8">
-//           <a 
-//             href="/notes" 
+//           <a
+//             href="/notes"
 //             className="text-blue-500 hover:text-blue-700 underline"
 //           >
 //             ← Назад до списку нотаток
@@ -56,15 +55,11 @@
 // export async function generateMetadata({ params }: NotePageProps) {
 //   const { id } = await params;
 //   const note = await getNoteById(id);
-  
+
 //   return {
 //     title: note ? `${note.title} - NoteHub` : 'Нотатка не знайдена',
 //   };
 // }
-
-
-
-
 
 // const NoteList = () => {
 //   return <div>id</div>;
@@ -72,20 +67,46 @@
 
 // export default NoteList;
 
-
-
-
-
 // app/notes/[id]/page.tsx
 
+// interface PageProps {
+//   params: {
+//     id: string;
+//   };
+// }
+
+// const NoteDetailPage = async ({
+//   params,
+// }: {
+//   params: Promise<{ id: string }>;
+// }) => {
+//   const { id } = await params;
+
+//   return (
+//     <div>
+//       <h1>Деталі нотатки</h1>
+//       <p>ID нотатки: {id}</p>
+//       {/* Тут буде контент нотатки */}
+//     </div>
+//   );
+// };
+
+// export default NoteDetailPage;
+
+
+
+
+
+
+
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const NoteDetailPage = ({ params }: PageProps) => {
-  const { id } = params;
+const NoteDetailPage = async ({ params }: PageProps) => {
+  const { id } = await params;
 
   return (
     <div>
@@ -96,8 +117,4 @@ const NoteDetailPage = ({ params }: PageProps) => {
   );
 };
 
-export default NoteDetailPage;
-
-
-
-
+export default NoteDetailPage; 
