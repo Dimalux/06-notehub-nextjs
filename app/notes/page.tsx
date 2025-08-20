@@ -10,7 +10,7 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
-import styles from "./App.module.css";
+import styles from "@/app/notes/page.module.css";
 
 export default function App() {
   const [page, setPage] = useState(1);
