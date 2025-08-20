@@ -66,8 +66,38 @@
 
 
 
-const NoteList = () => {
-  return <div>id</div>;
+// const NoteList = () => {
+//   return <div>id</div>;
+// };
+
+// export default NoteList;
+
+
+
+
+
+// app/notes/[id]/page.tsx
+
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const NoteDetailPage = ({ params }: PageProps) => {
+  const { id } = params;
+
+  return (
+    <div>
+      <h1>Деталі нотатки</h1>
+      <p>ID нотатки: {id}</p>
+      {/* Тут буде контент нотатки */}
+    </div>
+  );
 };
 
-export default NoteList;
+export default NoteDetailPage;
+
+
+
+
