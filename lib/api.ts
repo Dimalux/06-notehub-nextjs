@@ -12,6 +12,15 @@ interface NotesResponse {
   totalPages: number;
 }
 
+// Додаємо тип для помилки Axios
+interface AxiosErrorResponse {
+  response?: {
+    status: number;
+    data?: any;
+  };
+  message: string;
+}
+
 export const fetchNotes = async (
   page = 1,
   perPage = 12,
@@ -88,24 +97,32 @@ export const getSingleNote = async (id: string): Promise<Note> => {
     });
 
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) { // ЗМІНА ТУТ: замість any використовуємо unknown
     // Спеціальна обробка для 404 помилки
-    if (error.response?.status === 404) {
-      throw new Error(`Нотатку з ID "${id}" не знайдено`);
-    }
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 404) {
+        throw new Error(`Нотатку з ID "${id}" не знайдено`);
+      }
 
-    // Обробка інших помилок
-    if (error.response?.status === 401) {
-      throw new Error("Помилка авторизації. Перевірте токен доступу");
+      // Обробка інших помилок
+      if (error.response?.status === 401) {
+        throw new Error("Помилка авторизації. Перевірте токен доступу");
+      }
     }
 
     console.error("Помилка отримання нотатки:", error);
-    throw error;
+    
+    // Обробка звичайних помилок
+    if (error instanceof Error) {
+      throw error;
+    }
+    
+    throw new Error("Невідома помилка при отриманні нотатки");
   }
 };
 
 // Додаємо функцію для дебагінга
-export const getAllNotesForDebug = async () => {
+export const getAllNotesForDebug = async (): Promise<Note[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/notes?page=1&perPage=100`, {
       headers: {
