@@ -96,3 +96,18 @@ line-clamp: 3; /* Стандартна властивість */
 .link:hover {
   background-color: #0b5ed7;
 }
+
+
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.cardLink:hover {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}

@@ -9,7 +9,7 @@ const REQUEST_DELAY = 500; // мс
 
 interface NotesResponse {
   notes: Note[];
-  totalPages: number; 
+  totalPages: number;
 }
 
 export const fetchNotes = async (
@@ -64,5 +64,58 @@ export const deleteNote = async (id: string): Promise<Note> => {
   } catch (error) {
     console.error("Помилка видалення:", error);
     throw error;
+  }
+};
+
+export const getSingleNote = async (id: string): Promise<Note> => {
+  // Додаємо валідацію ID
+  if (!id || typeof id !== "string" || id.trim() === "") {
+    throw new Error("Неправильний формат ID нотатки");
+  }
+
+  const now = Date.now();
+  if (now - lastRequestTime < REQUEST_DELAY) {
+    console.log("Запит відхилено: занадто швидко після попереднього");
+    throw new Error("Request too fast");
+  }
+  lastRequestTime = now;
+
+  try {
+    const response = await axios.get<Note>(`${BASE_URL}/notes/${id}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+      },
+    });
+
+    return response.data;
+  } catch (error: any) {
+    // Спеціальна обробка для 404 помилки
+    if (error.response?.status === 404) {
+      throw new Error(`Нотатку з ID "${id}" не знайдено`);
+    }
+
+    // Обробка інших помилок
+    if (error.response?.status === 401) {
+      throw new Error("Помилка авторизації. Перевірте токен доступу");
+    }
+
+    console.error("Помилка отримання нотатки:", error);
+    throw error;
+  }
+};
+
+// Додаємо функцію для дебагінга
+export const getAllNotesForDebug = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/notes?page=1&perPage=100`, {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+      },
+    });
+    console.log("Всі нотатки:", response.data.notes);
+    return response.data.notes;
+  } catch (error) {
+    console.error("Помилка отримання нотаток:", error);
+    return [];
   }
 };
