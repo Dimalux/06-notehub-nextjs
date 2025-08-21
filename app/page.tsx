@@ -1,4 +1,3 @@
-// import Image from "next/image";
 import css from '@/app/page.module.css';
 
 export default function Home() {
