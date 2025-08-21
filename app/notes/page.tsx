@@ -114,8 +114,42 @@
 
 
 
+// import { fetchNotes } from "@/lib/api";
+// import NotesClient from "./Notes.client";
+
+// interface NotesPageProps {
+//   searchParams: {
+//     page?: string;
+//     search?: string;
+//   };
+// }
+
+// export default async function NotesPage({ searchParams }: NotesPageProps) {
+//   const page = parseInt(searchParams.page || "1");
+//   const searchQuery = searchParams.search || "";
+  
+//   // Отримуємо дані на сервері
+//   const notesData = await fetchNotes(page, 12, searchQuery);
+
+//   return (
+//     <NotesClient 
+//       initialData={notesData}
+//       initialPage={page}
+//       initialSearchQuery={searchQuery}
+//     />
+//   );
+// }
+
+
+
+
+
+
+
+
 import { fetchNotes } from "@/lib/api";
 import NotesClient from "./Notes.client";
+import { NotesResponse } from "@/types/note";
 
 interface NotesPageProps {
   searchParams: {
@@ -129,7 +163,7 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
   const searchQuery = searchParams.search || "";
   
   // Отримуємо дані на сервері
-  const notesData = await fetchNotes(page, 12, searchQuery);
+  const notesData: NotesResponse = await fetchNotes(page, 12, searchQuery);
 
   return (
     <NotesClient 
