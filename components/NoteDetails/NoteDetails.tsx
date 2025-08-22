@@ -1,5 +1,5 @@
 import { Note } from "@/types/note";
-import styles from "./NoteDetails.module.css";
+import styles from "@/components/NoteDetails/NoteDetails.module.css";
 
 interface NoteDetailsProps {
   note: Note;

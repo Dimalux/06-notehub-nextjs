@@ -111,12 +111,12 @@
 //     }
 
 //     console.error("Помилка отримання нотатки:", error);
-    
+
 //     // Обробка звичайних помилок
 //     if (error instanceof Error) {
 //       throw error;
 //     }
-    
+
 //     throw new Error("Невідома помилка при отриманні нотатки");
 //   }
 // };
@@ -136,10 +136,6 @@
 //     return [];
 //   }
 // };
-
-
-
-
 
 // import axios from "axios";
 // import { Note, NewNote } from "../types/note";
@@ -245,12 +241,12 @@
 //     }
 
 //     console.error("Помилка отримання нотатки:", error);
-    
+
 //     // Обробка звичайних помилок
 //     if (error instanceof Error) {
 //       throw error;
 //     }
-    
+
 //     throw new Error("Невідома помилка при отриманні нотатки");
 //   }
 // };
@@ -270,10 +266,6 @@
 //     return [];
 //   }
 // };
-
-
-
-
 
 // import axios from "axios";
 // import { Note, NewNote } from "../types/note";
@@ -392,12 +384,12 @@
 //     }
 
 //     console.error("Помилка отримання нотатки:", error);
-    
+
 //     // Обробка звичайних помилок
 //     if (error instanceof Error) {
 //       throw error;
 //     }
-    
+
 //     throw new Error("Невідома помилка при отриманні нотатки");
 //   }
 // };
@@ -417,12 +409,6 @@
 //     return [];
 //   }
 // };
-
-
-
-
-
-
 
 // import axios from "axios";
 // import { Note, NewNote, NotesResponse } from "../types/note";
@@ -536,12 +522,12 @@
 //     }
 
 //     console.error("Помилка отримання нотатки:", error);
-    
+
 //     // Обробка звичайних помилок
 //     if (error instanceof Error) {
 //       throw error;
 //     }
-    
+
 //     throw new Error("Невідома помилка при отриманні нотатки");
 //   }
 // };
@@ -562,9 +548,6 @@
 //   }
 // };
 
-
-
-
 import axios from "axios";
 import { Note, NewNote, NotesResponse } from "../types/note";
 
@@ -575,7 +558,7 @@ let lastRequestTime = 0;
 const REQUEST_DELAY = 500; // мс
 
 // Допоміжна функція для перевірки, чи виконується на клієнті
-const isClient = () => typeof window !== 'undefined';
+const isClient = () => typeof window !== "undefined";
 
 const shouldCheckRateLimit = () => {
   return isClient();
@@ -639,7 +622,7 @@ export const deleteNote = async (id: string): Promise<Note> => {
   }
 };
 
-export const getSingleNote = async (id: string): Promise<Note> => {
+export const fetchNoteById = async (id: string): Promise<Note> => {
   // Додаємо валідацію ID
   if (!id || typeof id !== "string" || id.trim() === "") {
     throw new Error("Неправильний формат ID нотатки");
@@ -677,12 +660,12 @@ export const getSingleNote = async (id: string): Promise<Note> => {
     }
 
     console.error("Помилка отримання нотатки:", error);
-    
+
     // Обробка звичайних помилок
     if (error instanceof Error) {
       throw error;
     }
-    
+
     throw new Error("Невідома помилка при отриманні нотатки");
   }
 };
@@ -690,11 +673,14 @@ export const getSingleNote = async (id: string): Promise<Note> => {
 // Додаємо функцію для дебагінга
 export const getAllNotesForDebug = async (): Promise<Note[]> => {
   try {
-    const response = await axios.get<{notes: Note[]}>(`${BASE_URL}/notes?page=1&perPage=100`, {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
-      },
-    });
+    const response = await axios.get<{ notes: Note[] }>(
+      `${BASE_URL}/notes?page=1&perPage=100`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+        },
+      }
+    );
     console.log("Всі нотатки:", response.data.notes);
     return response.data.notes;
   } catch (error) {
