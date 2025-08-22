@@ -1,5 +1,5 @@
 import { Note } from "@/types/note";
-import styles from "@/components/NoteDetails/NoteDetails.module.css";
+import styles from "@/app/notes/[id]/NoteDetailsClient.module.css";
 
 interface NoteDetailsProps {
   note: Note;
@@ -12,9 +12,9 @@ export default function NoteDetails({ note }: NoteDetailsProps) {
         <div className={styles.header}>
           <h2>{note.title}</h2>
         </div>
-        
+
         <p className={styles.content}>{note.content}</p>
-        
+
         <p className={styles.date}>
           {note.createdAt && new Date(note.createdAt).toLocaleDateString()}
         </p>
@@ -22,8 +22,3 @@ export default function NoteDetails({ note }: NoteDetailsProps) {
     </div>
   );
 }
-
-
-
-
-

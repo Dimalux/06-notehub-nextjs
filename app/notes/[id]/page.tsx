@@ -1,5 +1,5 @@
 import { fetchNoteById } from "@/lib/api";
-import NoteDetails from "@/components/NoteDetails/NoteDetails";
+import NoteDetails from "@/app/notes/[id]/NoteDetailsClient";
 
 const NoteDetailPage = async ({
   params,
