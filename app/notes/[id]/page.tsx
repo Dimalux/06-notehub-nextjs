@@ -1,6 +1,10 @@
 import { fetchNoteById } from "@/lib/api";
-import NoteDetailsClient from "@/app/notes/[id]/NoteDetailsClient";
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import NoteDetailsClient from "@/app/notes/[id]/NoteDetails.client";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 const NoteDetailPage = async ({
   params,
