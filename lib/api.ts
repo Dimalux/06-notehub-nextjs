@@ -1,5 +1,13 @@
 import axios from "axios";
-import { Note, NewNote, NotesResponse } from "../types/note";
+import { Note, NewNote } from "../types/note";
+
+
+export interface NotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
+
 
 const BASE_URL = "https://notehub-public.goit.study/api";
 
@@ -72,7 +80,6 @@ export const deleteNote = async (id: string): Promise<Note> => {
   }
 };
 
-
 export const fetchNoteById = async (id: string): Promise<Note> => {
   try {
     const response = await axios.get<Note>(`${BASE_URL}/notes/${id}`, {
@@ -90,12 +97,11 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
         throw new Error("Authorization error. Please check access token");
       }
     }
-    
+
     console.error("Error fetching note:", error);
     throw new Error("Failed to fetch note");
   }
 };
-
 
 // Додаємо функцію для дебагінга
 export const getAllNotesForDebug = async (): Promise<Note[]> => {
@@ -115,7 +121,3 @@ export const getAllNotesForDebug = async (): Promise<Note[]> => {
     return [];
   }
 };
-
-
-
-

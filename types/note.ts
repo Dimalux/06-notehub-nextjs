@@ -13,7 +13,4 @@ export interface NewNote {
   tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 }
 
-export interface NotesResponse {
-  notes: Note[];
-  totalPages: number;
-}
+

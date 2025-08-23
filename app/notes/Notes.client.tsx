@@ -11,7 +11,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import styles from "@/app/notes/page.module.css";
-import { NotesResponse } from "@/types/note";
+import { NotesResponse } from "@/lib/api";
 
 interface NotesClientProps {
   initialData: NotesResponse;
