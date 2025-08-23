@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import styles from './Modal.module.css';
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import styles from "./Modal.module.css";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -9,15 +9,25 @@ interface ModalProps {
 
 export default function Modal({ children, onClose }: ModalProps) {
   useEffect(() => {
+    // Зберігаємо поточний стан прокрутки
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+
+    // Блокуємо прокрутку
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') {
+      if (e.code === "Escape") {
         onClose();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Функція очищення
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
+      // Відновлюємо прокрутку
+      document.body.style.overflow = originalStyle;
     };
   }, [onClose]);
 
